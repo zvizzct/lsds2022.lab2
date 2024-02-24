@@ -48,3 +48,7 @@ This project requires the following dependencies:
 
 - Adjust your Spark configurations (e.g., number of executors, core and memory settings) based on the size of your dataset and the capacity of your EMR cluster to optimize performance.
 - Monitor the AWS EMR console for logs and metrics that can help troubleshoot any issues or further tune your application's performance.
+
+### Benchmark
+
+Running in 8 cluster local: Total execution time: 293655ms
