@@ -41,7 +41,7 @@ public class TwitterLanguageFilterApp {
         } finally {
             long endTime = System.currentTimeMillis();
             System.out.println("Total execution time: " + (endTime-startTime) + "ms"); 
-            sparkContext.close(); // Asegurarse de cerrar el SparkContext al final
+            sparkContext.close(); 
         }
     }
 }
