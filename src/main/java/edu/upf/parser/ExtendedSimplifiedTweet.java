@@ -18,7 +18,6 @@ public class ExtendedSimplifiedTweet implements Serializable {
     private final Long retweetedUserId;
     private final Long retweetedTweetId;
     private final long timestampMs;
-    
 
     public ExtendedSimplifiedTweet(long tweetId, String text, long userId, String userName, long followersCount,
             String language, boolean isRetweeted, Long retweetedUserId, Long retweetedTweetId, long timestampMs) {
@@ -64,6 +63,7 @@ public class ExtendedSimplifiedTweet implements Serializable {
             return Optional.empty();
         }
     }
+
     public boolean isRetweeted() {
         return isRetweeted;
     }
@@ -71,7 +71,20 @@ public class ExtendedSimplifiedTweet implements Serializable {
     public String getText() {
         return text;
     }
-    public String getLanguage(){
+
+    public String getLanguage() {
         return language;
+    }
+
+    public static String[] normalise(String word) {
+        return word.trim().toLowerCase().split("\\s+");
+    }
+
+    public long getRetweetedUserId() {
+        return this.retweetedUserId;
+    }
+
+    public long getRetweetedTweetId() {
+        return this.retweetedTweetId;
     }
 }

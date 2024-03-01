@@ -1,54 +1,66 @@
-# Lab 2: Spark Batch Applications on ElasticMapReduce
+# Lab 2 Solution: Spark Batch Applications on ElasticMapReduce
 
-### Objective
+## Objective
 
-This lab focuses on leveraging Apache Spark for batch processing tasks, specifically implementing a TwitterLanguageFilter application that filters tweets by language. The application is designed to run on AWS ElasticMapReduce (EMR) and includes enhancements to the SimplifiedTweet class for accessing additional tweet fields, enabling more complex data processing tasks with Spark.
+This lab was aimed at leveraging Apache Spark for batch processing tasks on AWS ElasticMapReduce (EMR). The tasks included implementing a Twitter Language Filter, analyzing most popular bi-grams in tweets by language, and identifying the most retweeted tweets for the most retweeted users. The goal was to enhance our understanding of Spark's capabilities in distributed data processing and gain hands-on experience with AWS EMR.
 
-### How to Use
+## Implemented Classes
 
-1. Prepare your Spark application by packaging it with Maven. Ensure your main class is named `TwitterLanguageFilterApp` and located within the `edu.upf` package.
+1. **TwitterLanguageFilterApp**: Filters tweets by language and stores the results in S3.
+2. **BiGramsApp**: Analyzes tweets to find the most popular bi-grams for a specified language.
+3. **MostRetweetedApp**: Identifies the most retweeted tweet for the top-10 most retweeted users.
 
-2. Upload your compiled jar to an S3 bucket structured as follows: `lsds2024.lab2.output.<USER-ID>/jars/your-jar-file(s)`.
+## Dependencies
 
-3. Load your input data onto S3 in the `input` directory of the same bucket.
+- Apache Spark: For distributed data processing.
+- AWS SDK: For accessing AWS services like S3 and EMR.
+- Gson: For JSON processing.
+- JUnit: For testing the applications.
 
-4. Create an EMR cluster with Spark support through the AWS Web Console. Refer to the provided Lab 2 slides for detailed instructions.
+## Additional Remarks
 
-5. Add a Spark step in the AWS console to execute your application, specifying the jar location on S3 and the main class to run.
+- The applications were designed to be modular and reusable.
+- AWS credentials were configured properly to ensure access to S3 and EMR.
+- The Spark configurations were optimized based on the dataset size and EMR cluster capacity.
 
-6. Use the following format for running your Spark job:
-   `spark-submit --master <YOUR MASTER> --class edu.upf.TwitterLanguageFilterApp your.jar <language> <output> <inputFile/Folder>`
+## Solutions
 
 ### Benchmarking on EMR
 
-To benchmark the performance of your Spark-based TwitterFilter application on EMR, follow these steps:
+The TwitterLanguageFilterApp was benchmarked on AWS EMR for different languages with the following results:
 
-1. Run the application for different languages (e.g., Spanish `es`, English `en`, and Catalan `ca`), and store the results in their respective directories within the `benchmark` folder on S3.
+- Spanish (`es`): 3 minutes, 20 seconds
+- Catalan (`ca`): 3 minutes, 6 seconds
+- English (`en`): 3 minutes, 26 seconds
 
-2. Document the elapsed time for each run as observed in the AWS console.
+### Bigrams Output
 
-3. Note that you can experiment with running Spark on different numbers of cores, limited by your EMR cluster's configuration, to observe the impact on processing time.
+The following table presents the top-10 most popular bi-grams from the tweets in Spanish (`es`), Catalan (`ca`), and English (`en`):
 
-### Additional Remarks
+| Spanish (`es`)                      | Catalan (`ca`)                           | English (`en`)           |
+| ----------------------------------- | ---------------------------------------- | ------------------------ |
+| #eurovision #finaleurovision: 22545 | alexander rybak: 404                     | of the: 21279            |
+| en el: 21448                        | es el: 369                               | in the: 13665            |
+| de la: 19980                        | de noruega.: 347                         | for the: 11443           |
+| en #eurovision: 16049               | #eurovision https://t.co/b091qrmq5l: 346 | this is: 11440           |
+| que no: 15545                       | el jordi: 346                            | the uk: 9874             |
+| en la: 13135                        | realmente es: 346                        | rt @eurovision:: 9747    |
+| el año: 12610                       | noruega. #eurovision: 346                | rt @bbceurovision:: 9558 |
+| lo que: 12465                       | jordi hurtado: 346                       | vote for: 9185           |
+| a la: 11812                         | rybak realmente: 346                     | song contest: 8393       |
+| que el: 11507                       | hurtado de: 346                          | is the: 8182             |
 
-- Ensure your AWS credentials are properly set up for access to S3 and EMR.
-- Remember to terminate your EMR cluster after your experiments to avoid unnecessary AWS charges.
-- The input files must be in JSON format, containing tweets from the specified event or dataset. The output will be stored in a designated directory on S3.
+### Most Retweeted Output
 
-### Dependencies
+The top-10 most retweeted tweets for the most retweeted users were as follows:
 
-This project requires the following dependencies:
-
-- Apache Spark for distributed data processing.
-- AWS SDK for integration with AWS services like S3 and EMR.
-- Gson for JSON processing.
-- JUnit for testing.
-
-### Important Notes
-
-- Adjust your Spark configurations (e.g., number of executors, core and memory settings) based on the size of your dataset and the capacity of your EMR cluster to optimize performance.
-- Monitor the AWS EMR console for logs and metrics that can help troubleshoot any issues or further tune your application's performance.
-
-### Benchmark
-
-Running in 8 cluster local: Total execution time: 293655ms
+1. Tweet ID `995356756770467840`: 10809 retweets
+2. Tweet ID `995435123351973890`: 5420 retweets
+3. Tweet ID `995381560277979136`: 4643 retweets
+4. Tweet ID `995406052190445568`: 4138 retweets
+5. Tweet ID `995417089656672256`: 3944 retweets
+6. Tweet ID `995384555719839744`: 3668 retweets
+7. Tweet ID `995451073606406144`: 2991 retweets
+8. Tweet ID `995374825353904128`: 2278 retweets
+9. Tweet ID `995407527864041473`: 2127 retweets
+10. Tweet ID `995388604045316097`: 2113 retweets
