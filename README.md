@@ -17,12 +17,6 @@ This lab was aimed at leveraging Apache Spark for batch processing tasks on AWS 
 - Gson: For JSON processing.
 - JUnit: For testing the applications.
 
-## Additional Remarks
-
-- The applications were designed to be modular and reusable.
-- AWS credentials were configured properly to ensure access to S3 and EMR.
-- The Spark configurations were optimized based on the dataset size and EMR cluster capacity.
-
 ## Solutions
 
 ### Benchmarking on EMR
